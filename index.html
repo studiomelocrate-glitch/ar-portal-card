@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+    <!-- MindAR -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden">
+    <a-scene
+      mindar-image="imageTargetSrc: targets.mind;"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      renderer="colorManagement: true; physicallyCorrectLights: false"
+    >
+
+      <!-- Load assets -->
+      <a-assets>
+        <a-asset-item id="portalModel" src="portal.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Camera -->
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!-- Image target -->
+      <a-entity mindar-image-target="targetIndex: 0">
+
+        <!-- Portal model -->
+       <a-entity
+  gltf-model="#portalModel"
+  position="0 0 0"
+  rotation="0 0 0"
+  scale="2 2 2"
+  animation-mixer
+></a-entity>
+
+
+        <!-- Portal occluder (the "hole") -->
+        <a-plane
+          position="0 0 0.01"
+          rotation="0 0 0"
+          width="1"
+          height="1"
+          material="opacity: 0"
+          visible="false"
+          mindar-occluder
+        ></a-plane>
+
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
